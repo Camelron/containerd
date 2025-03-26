@@ -25,6 +25,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/sirupsen/logrus"
 	"github.com/containerd/cgroups/v3"
 	"github.com/containerd/containerd/contrib/apparmor"
 	"github.com/containerd/containerd/contrib/seccomp"
@@ -350,6 +351,9 @@ func (c *criService) containerSpecOpts(config *runtime.ContainerConfig, imageCon
 	// Set container username. This could only be done by containerd, because it needs
 	// access to the container rootfs. Pass user name to containerd, and let it overwrite
 	// the spec for us.
+	logrus.Warnf("Cameron upstream debug: pkg/cri/server/container_create_linux generateUserString(%s, %d, %d)", securityContext.GetRunAsUsername(), securityContext.GetRunAsUser(), securityContext.GetRunAsGroup())
+	logrus.Warnf("Cameron upstream debug: pkg/cri/server/container_create_linux imageConfig.User: %s", imageConfig.User)
+
 	userstr, err := generateUserString(
 		securityContext.GetRunAsUsername(),
 		securityContext.GetRunAsUser(),
