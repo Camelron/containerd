@@ -369,6 +369,9 @@ func (c *criService) containerSpecOpts(config *runtime.ContainerConfig, imageCon
 	if userstr != "" {
 		specOpts = append(specOpts, oci.WithUser(userstr))
 	}
+	logrus.Warnf("Cameron upstream debug: pkg/cri/server/container_create_linux end userstr: %s", userstr)
+	logrus.Warnf("Cameron upstream debug: pkg/cri/server/container_create_linux oci.WithUser(userstr): %s", oci.WithUser(userstr))
+
 
 	userstr = "0" // runtime default
 	if securityContext.GetRunAsUsername() != "" {
